@@ -87,7 +87,7 @@ module IRuby
       target_dir = File.join(File.dirname(__FILE__), 'static')
       unless (File.readlink(static_dir) rescue nil) == target_dir
         File.unlink(static_dir) rescue nil
-        File.symlink(target_dir, static_dir)
+        begin; File.symlink(target_dir, static_dir); rescue Errno::EEXIST; end
       end
     end
   end
